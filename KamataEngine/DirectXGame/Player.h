@@ -34,8 +34,10 @@ public:
 	void MoveStopZ() { mSpeed[2] = 0.0f; };
 
 	//ÉQÉbÉ^Å[
+	WorldTransform GetWorldTransform() { return worldTransform_; }
 	Vector3 GetTranslation() { return worldTransform_.translation_; }
 	Vector3 GetMove() { return move; }
+	float GetMoveSpeed() { return moveSpeed; }
 	float GetSize() { return size; }
 private:
 	WorldTransform worldTransform_;

@@ -13,3 +13,40 @@ bool mapcol(int x, int y, int z)
 
 	return Map[mapy][mapz][mapx] == BLOCK;
 }
+
+void map::Initialize()
+{
+}
+
+void map::Loding(char const* _FileName)
+{
+	FILE* fp = NULL;
+
+	fopen_s(&fp,_FileName, "r");
+
+	//”z—ñ—p‚Ì•Ï”
+	int i, j, k;
+	i = 0; j = 0; k = 0;
+	//‘ã“ü
+	while (i < blockY && j < blockZ && k < blockX) {
+		fscanf_s(fp, "%d,", &M[i][j][k]);
+		if (k < blockX - 1)
+		{
+			k++;
+		}
+		else if(j < blockZ - 1)
+		{
+			k = 0;
+			j++;
+		}
+		else
+		{
+			k = 0;
+			j = 0;
+			i++;
+		}
+	}
+
+
+	fclose(fp);
+}

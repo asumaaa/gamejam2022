@@ -57,7 +57,7 @@ void Player::Move()
 		move.z = 0;
 	}
 	mSpeed[1] = -gravity;
-	move.y = mSpeed[1];
+	/*move.y = mSpeed[1];*/
 
 	worldTransform_.translation_ += move;
 }
