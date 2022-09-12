@@ -40,9 +40,9 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 	//レールカメラ
-	RailCamera* newRailCamera = new RailCamera();
+	/*RailCamera* newRailCamera = new RailCamera();
 	newRailCamera->Initialize(player_->GetWorldTransform());
-	railCamera_.reset(newRailCamera);
+	railCamera_.reset(newRailCamera);*/
 
 	//マップ
 	/*const char* fileName = "map1.csv";*/
@@ -56,10 +56,13 @@ void GameScene::Initialize() {
 
 void GameScene::Update() 
 {
+	//シーンを更新
+	(this->*Scene_[scene_])();
+
 	player_->Update();
-	MapCollision();
+	/*MapCollision();*/
 	map.Loding("tutorialHole.csv");
-	railCamera_->Update(player_->GetWorldTransform());
+	/*railCamera_->Update(player_->GetWorldTransform());*/
 	debugCamera_->Update();
 }
 
@@ -97,14 +100,14 @@ void GameScene::Draw() {
 			{
 				if (map.M[i][j][k] == 1)
 				{
-					model_->Draw(worldTransform_[i][j][k], debugCamera_->GetViewProjection(), textureHandle_);
+					model_->Draw(worldTransform_[i][j][k], railCamera_->GetViewProjection(), textureHandle_);
 				}
 			}
 		}
 	}
 				debugText_->SetPos(0, 0);
 				debugText_->Printf("%d", map.M[0][0][0]);
-	player_->Draw(debugCamera_->GetViewProjection());
+	player_->Draw(railCamera_->GetViewProjection());
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -271,3 +274,22 @@ void GameScene::MapCollision()
 	//debugText_->SetPos(0, 0);
 	//debugText_->Printf("%d", mapcol(right + player_->GetMove().x, down, front));
 }
+
+void GameScene::Title()
+{
+}
+
+void GameScene::Select()
+{
+}
+
+void GameScene::Game()
+{
+}
+
+void (GameScene::* GameScene::Scene_[])() =
+{
+	&GameScene::Title,
+	&GameScene::Select,
+	&GameScene::Game,
+};

@@ -10,6 +10,8 @@ void RailCamera::Initialize(WorldTransform worldTransform)
 
 void RailCamera::Update(WorldTransform worldTransform)
 {
+	(this->*Mode_[mode_])();
+
 	float x, y, z;
 
 	//プレイヤーの角度に合わせてカメラを回転
@@ -33,4 +35,24 @@ void RailCamera::Update(WorldTransform worldTransform)
 	viewProjection_.eye = { x,y,z };
 	viewProjection_.target = { worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z };
 	viewProjection_.Initialize();
+}
+
+void (RailCamera::* RailCamera::Mode_[])() =
+{
+	&RailCamera::Approach,
+	&RailCamera::Homing,
+	&RailCamera::Operarion,
+};
+
+
+void RailCamera::Approach()
+{
+}
+
+void RailCamera::Homing()
+{
+}
+
+void RailCamera::Operarion()
+{
 }

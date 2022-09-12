@@ -51,6 +51,11 @@ class GameScene {
 	//当たり判定
 	void MapCollision();
 
+	//シーンごとの処理
+	void Title();
+	void Select();
+	void Game();
+
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -72,6 +77,18 @@ class GameScene {
 
 	//プレイヤー
 	std::unique_ptr<Player> player_;
+
+	//シーン
+	enum class Scene
+	{
+		Title,	//タイトル
+		Select,	//ステージ選択
+		Game	//操作
+	};
+	//シーン	最初がタイトル
+	size_t scene_ = static_cast<size_t>(Scene::Title);
+	//メンバ関数のポインタテーブル
+	static void (GameScene::* Scene_[])();
 
 	//マップ
 	map map;
